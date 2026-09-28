@@ -33,6 +33,8 @@ Use it for implementation, debugging, code review, and documentation. You can
 also route writing, research, and other tasks inside those CLIs; the default
 routing criteria currently emphasize software engineering.
 
+> **OpenJEV support:** Jev is built by [TypeSafe](https://typesafe.ai). This fork keeps TypeSafe as the default and adds optional support for [OpenJEV](https://openjev.sh), a free community gateway to the same Jev model — set `OPENJEV_API_KEY` (or `SWITCHBOARD_PROVIDER=openjev`) to use it. Original project: https://github.com/ruban-24/switchboard by @ruban-24.
+
 <br>
 
 ![Switchboard automatically selects GPT-5.6 Terra with low effort for a routine slugify task in Codex](assets/switchboard-routine-demo.gif)

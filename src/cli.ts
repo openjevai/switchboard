@@ -102,9 +102,9 @@ async function init(root: string, args: string[]): Promise<number> {
       const answer = await choose('Enable 1) Claude 2) Codex 3) Both', ['1', '2', '3'], fallback);
       enabledTools = answer === '1' ? ['claude'] : answer === '2' ? ['codex'] : [...v.tools];
     }
-    console.log('\nJev connection:\n  1) TypeSafe\n  2) Vercel AI Gateway\n  3) OpenRouter\n  4) Custom TypeSafe-compatible endpoint');
-    const providerChoice = await choose('Provider', ['1', '2', '3', '4'], initialClassifier.provider === 'vercel' ? '2' : initialClassifier.provider === 'openrouter' ? '3' : env.SWITCHBOARD_BASE_URL || env.TYPESAFE_BASE_URL ? '4' : '1');
-    const provider = providerChoice === '2' ? 'vercel' : providerChoice === '3' ? 'openrouter' : 'typesafe';
+    console.log('\nJev connection:\n  1) TypeSafe\n  2) Vercel AI Gateway\n  3) OpenRouter\n  4) Custom TypeSafe-compatible endpoint\n  5) OpenJEV (free community gateway to the same Jev model)');
+    const providerChoice = await choose('Provider', ['1', '2', '3', '4', '5'], initialClassifier.provider === 'vercel' ? '2' : initialClassifier.provider === 'openrouter' ? '3' : initialClassifier.provider === 'openjev' ? '5' : env.SWITCHBOARD_BASE_URL || env.TYPESAFE_BASE_URL ? '4' : '1');
+    const provider = providerChoice === '2' ? 'vercel' : providerChoice === '3' ? 'openrouter' : providerChoice === '5' ? 'openjev' : 'typesafe';
     const selectedEnv: NodeJS.ProcessEnv = { SWITCHBOARD_PROVIDER: provider };
     const sameProvider = provider === initialClassifier.provider;
     if (sameProvider) for (const key of credentialKeys(provider)) selectedEnv[key] = env[key];

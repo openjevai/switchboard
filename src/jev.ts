@@ -17,13 +17,19 @@ export interface JevClient {
 const SDK_ATTEMPT_TIMEOUT_MS = 31_000;
 export const TYPESAFE_BASE_URL = 'https://api.typesafe.ai';
 export const VERCEL_BASE_URL = 'https://ai-gateway.vercel.sh/v4/ai';
+export const OPENJEV_BASE_URL = 'https://api.openjev.sh';
 
 export function typesafeModel(env: NodeJS.ProcessEnv = process.env): string {
   return env.SWITCHBOARD_MODEL?.trim() || env.TYPESAFE_DEFAULT_MODEL?.trim() || 'jev-latest';
 }
 
+/** OpenJEV (community gateway to the same Jev model) uses model id `openjev`. */
+export function openjevModel(env: NodeJS.ProcessEnv = process.env): string {
+  return env.SWITCHBOARD_MODEL?.trim() || 'openjev';
+}
+
 export function createJevClassifier(apiKey: string | undefined, injectedClient?: JevClient, modelId = typesafeModel(), connection: {
-  baseURL?: string; provider?: 'typesafe' | 'openrouter';
+  baseURL?: string; provider?: 'typesafe' | 'openrouter' | 'openjev';
 } = {}) {
   if (!apiKey?.trim()) throw new Error('Set JEV_API_KEY or TYPESAFE_API_KEY before using Jev classification');
   const client: JevClient = injectedClient ?? new TypeSafeClient({

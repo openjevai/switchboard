@@ -66,7 +66,7 @@ function answer(value: unknown, choices: readonly string[]): { choice: string; c
 }
 
 export function parseJevAnswers(value: unknown, context: ClassificationContext, candidates: Candidate[], source?: {
-  provider: 'typesafe' | 'vercel' | 'openrouter'; requestedModel: string; resolvedModel: unknown;
+  provider: 'typesafe' | 'vercel' | 'openrouter' | 'openjev'; requestedModel: string; resolvedModel: unknown;
 }): Classification {
   const answers = value && typeof value === 'object' ? (value as { answers?: Record<string, unknown> }).answers : undefined;
   const taskType = answer(answers?.taskType, Object.keys(baseQuestions.taskType.criteria));

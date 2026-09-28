@@ -19,10 +19,10 @@ export function choiceProbabilities<K extends string>(value: unknown, choices: r
 /** Also applied at persistence boundaries so arbitrary provider payloads cannot be stored. */
 export function parseDiagnostics(value: unknown): ClassificationDiagnostics | undefined {
   const d = record(value);
-  if (!d || (d.provider !== 'typesafe' && d.provider !== 'vercel' && d.provider !== 'openrouter')) return undefined;
+  if (!d || (d.provider !== 'typesafe' && d.provider !== 'vercel' && d.provider !== 'openrouter' && d.provider !== 'openjev')) return undefined;
   const p = record(d.probabilities);
   const version = /^jev-\d+\.\d+\.\d+$/;
-  const requested = /^(?:jev-(?:latest|preview|\d+\.\d+(?:\.\d+)?)|typesafe-ai\/jev)$/;
+  const requested = /^(?:jev-(?:latest|preview|\d+\.\d+(?:\.\d+)?)|typesafe-ai\/jev|openjev)$/;
   const openrouter = /^(?:(?:typesafe\/)?jev-(?:latest|preview|\d+\.\d+(?:\.\d+)?(?:-\d{8})?)|~typesafe\/jev-latest)$/;
   const requestedModel = d.provider === 'openrouter' ? openrouter : requested;
   const resolvedModel = d.provider === 'openrouter' ? openrouter : version;

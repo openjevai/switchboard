@@ -1,7 +1,7 @@
 # Classifier connections
 
 Switchboard currently supports Jev. Choose **TypeSafe**, **Vercel AI Gateway**,
-**OpenRouter**, or a **TypeSafe-compatible endpoint** during `switchboard init`.
+**OpenRouter**, **OpenJEV**, or a **TypeSafe-compatible endpoint** during `switchboard init`.
 Enter the API key at the hidden prompt. Setup saves it in a private
 `connection.json` beside your policy, so subsequent launches need no exports.
 
@@ -15,6 +15,7 @@ a gateway or change your coding subscription.
 | --- | --- | --- | --- |
 | TypeSafe | `https://api.typesafe.ai` | TypeSafe System One | `jev-latest` |
 | OpenRouter | `https://openrouter.ai/api` | TypeSafe System One | `jev-latest` |
+| OpenJEV | `https://api.openjev.sh` | TypeSafe System One | `openjev` |
 | Vercel AI Gateway | `https://ai-gateway.vercel.sh/v4/ai` | Vercel evaluation | `typesafe-ai/jev` |
 | Custom endpoint | Your URL | TypeSafe System One | `jev-latest`, editable during setup |
 
@@ -139,13 +140,14 @@ local development environment, use:
 
 | Variable | Purpose |
 | --- | --- |
-| `SWITCHBOARD_PROVIDER` | `typesafe`, `openrouter`, or `vercel`. Defaults to the saved provider, then `typesafe`. |
+| `SWITCHBOARD_PROVIDER` | `typesafe`, `openjev`, `openrouter`, or `vercel`. Defaults to the saved provider, then `typesafe`. |
 | `SWITCHBOARD_API_KEY` | Key for the selected connection; takes precedence over provider-specific names. |
 | `SWITCHBOARD_BASE_URL` | Override the selected adapter's base URL. |
 | `SWITCHBOARD_MODEL` | Override the classifier model ID. |
 | `TYPESAFE_API_KEY` / `JEV_API_KEY` | Direct TypeSafe key; `JEV_API_KEY` takes precedence if both are set. |
 | `TYPESAFE_DEFAULT_MODEL` / `TYPESAFE_BASE_URL` | TypeSafe-only alternatives to the generic model and URL overrides. |
 | `OPENROUTER_API_KEY` | OpenRouter key. |
+| `OPENJEV_API_KEY` | OpenJEV key (free, from https://openjev.sh/dashboard). |
 | `AI_GATEWAY_API_KEY` | Vercel AI Gateway key. |
 
 Nonempty environment values take precedence over the saved connection. Blank

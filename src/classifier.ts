@@ -1,6 +1,6 @@
 import {
-  createJevClassifier, createVercelJevClassifier, typesafeModel,
-  TYPESAFE_BASE_URL, VERCEL_BASE_URL, VERCEL_JEV_MODEL,
+  createJevClassifier, createVercelJevClassifier, typesafeModel, openjevModel,
+  TYPESAFE_BASE_URL, OPENJEV_BASE_URL, VERCEL_BASE_URL, VERCEL_JEV_MODEL,
 } from './jev.ts';
 
 function baseURL(value: string): string {
@@ -31,6 +31,11 @@ function settings(env: NodeJS.ProcessEnv) {
     credentialEnvironment: 'JEV_API_KEY or TYPESAFE_API_KEY or SWITCHBOARD_API_KEY',
     apiKey: commonKey || env.JEV_API_KEY?.trim() || env.TYPESAFE_API_KEY?.trim(),
   } as const;
+  if (provider === 'openjev') return {
+    provider, label: 'OpenJEV', adapter: 'typesafe-system-one', modelId: modelId(customModel || openjevModel(env)),
+    baseURL: baseURL(customURL || env.OPENJEV_BASE_URL?.trim() || OPENJEV_BASE_URL),
+    credentialEnvironment: 'OPENJEV_API_KEY or SWITCHBOARD_API_KEY', apiKey: commonKey || env.OPENJEV_API_KEY?.trim(),
+  } as const;
   if (provider === 'openrouter') return {
     provider, label: 'OpenRouter', adapter: 'typesafe-system-one', modelId: modelId(customModel || 'jev-latest'),
     baseURL: baseURL(customURL || 'https://openrouter.ai/api'),
@@ -41,7 +46,7 @@ function settings(env: NodeJS.ProcessEnv) {
     baseURL: baseURL(customURL || VERCEL_BASE_URL),
     credentialEnvironment: 'AI_GATEWAY_API_KEY or SWITCHBOARD_API_KEY', apiKey: commonKey || env.AI_GATEWAY_API_KEY?.trim(),
   } as const;
-  throw new Error('SWITCHBOARD_PROVIDER must be typesafe, vercel, or openrouter');
+  throw new Error('SWITCHBOARD_PROVIDER must be typesafe, openjev, vercel, or openrouter');
 }
 
 /** Safe for doctor output; never returns credential values. */

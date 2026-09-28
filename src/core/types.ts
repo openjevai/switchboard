@@ -60,7 +60,7 @@ export interface Catalog {
 }
 
 export interface ClassificationDiagnostics {
-  provider: 'typesafe' | 'vercel' | 'openrouter';
+  provider: 'typesafe' | 'vercel' | 'openrouter' | 'openjev';
   requestedModel: string | null;
   resolvedModel: string | null;
   probabilities: {
